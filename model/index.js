@@ -5,9 +5,6 @@ const contactsPath = path.resolve(__dirname, './contacts.json')
 
 const { customAlphabet } = require('nanoid/async')
 const nanoid = customAlphabet('1234567890abcdef', 10)
-async function createId () {
-  return await nanoid()
-}
 
 const readContactsFile = async (dataPath) => {
   const data = await fs.readFile(dataPath, 'utf8')
@@ -51,11 +48,11 @@ const removeContact = async (contactId) => {
     console.error(error.message)
   }
 }
-
+console.log(nanoid())
 const addContact = async (body) => {
   const { name, email, phone } = body
 
-  const contactNew = { id: createId(), name, email, phone }
+  const contactNew = { id: await nanoid(), name, email, phone }
 
   try {
     const contacts = await readContactsFile(contactsPath)
