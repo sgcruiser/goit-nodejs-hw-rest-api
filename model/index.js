@@ -24,8 +24,8 @@ const getContactById = async (contactId) => {
   try {
     const contacts = await readContactsFile(contactsPath)
 
-    const contact = contacts.filter(
-      ({ id }) => id === Number(contactId)
+    const contact = contacts.find(
+      ({ id }) => id.toString() === contactId
     )
     return contact
   } catch (error) {
@@ -37,18 +37,20 @@ const removeContact = async (contactId) => {
   try {
     const contacts = await readContactsFile(contactsPath)
 
-    const withoutRemoveContact = contacts.filter(
-      ({ id }) => id !== Number(contactId)
-    )
+    if (contacts.some(({ id }) => id.toString() === contactId)) {
+      const withoutRemoveContact = contacts.filter(
+        ({ id }) => id.toString() !== contactId
+      )
 
-    await fs.writeFile(contactsPath, JSON.stringify(withoutRemoveContact))
+      await fs.writeFile(contactsPath, JSON.stringify(withoutRemoveContact))
 
-    return withoutRemoveContact
+      return withoutRemoveContact
+    }
   } catch (error) {
     console.error(error.message)
   }
 }
-console.log(nanoid())
+
 const addContact = async (body) => {
   const { name, email, phone } = body
 
