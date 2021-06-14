@@ -18,7 +18,8 @@ router.get('/', async (req, res, next) => {
   try {
     const contacts = await listContacts()
 
-    return res.json({ status: 'success', code: '200', data: { contacts } })
+    return res.status('200')
+      .json({ status: 'success', code: '200', data: { contacts } })
   } catch (error) {
     next(error)
   }
@@ -28,13 +29,11 @@ router.get('/:contactId', async (req, res, next) => {
   try {
     const contact = await getContactById(req.params.contactId)
 
-    if (!contact) {
-      return res.status('404')
+    return !contact
+      ? res.status('404')
         .json({ status: 'error', code: '404', message: 'Not found' })
-    }
-
-    res.status('200')
-      .json({ status: 'success', code: '200', data: { contact } })
+      : res.status('200')
+        .json({ status: 'success', code: '200', data: { contact } })
   } catch (error) {
     next(error)
   }
@@ -44,7 +43,8 @@ router.post('/', validationAddContact, async (req, res, next) => {
   try {
     const contact = await addContact(req.body)
 
-    return res.json({ status: 'success', code: '201', data: { contact } })
+    return res.status('201')
+      .json({ status: 'success', code: '201', data: { contact } })
   } catch (error) {
     next(error)
   }
@@ -56,13 +56,15 @@ router.delete('/:contactId', async (req, res, next) => {
 
     if (contact) {
       await removeContact(req.params.contactId)
-      return res.json({
-        status: 'success',
-        code: '200',
-        message: `contact ID:${contact.id} deleted`
-      })
+      return res.status('200')
+        .json({
+          status: 'success',
+          code: '200',
+          message: `contact ID:${contact.id} deleted`
+        })
     } else {
-      return res.json({ status: 'error', code: '404', message: 'Not found' })
+      return res.status('404')
+        .json({ status: 'error', code: '404', message: 'Not found' })
     }
   } catch (error) {
     next(error)
@@ -74,8 +76,10 @@ router.put('/:contactId', validationUpdateContact, async (req, res, next) => {
     const contact = await updateContact(req.params.contactId, req.body)
 
     return !contact
-      ? res.json({ status: 'error', code: '404', message: 'Not found' })
-      : res.json({ status: 'success', code: '200', data: { contact } })
+      ? res.status('404')
+        .json({ status: 'error', code: '404', message: 'Not found' })
+      : res.status('200')
+        .json({ status: 'success', code: '200', data: { contact } })
   } catch (error) {
     next(error)
   }

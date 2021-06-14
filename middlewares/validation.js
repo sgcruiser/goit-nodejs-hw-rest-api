@@ -32,15 +32,6 @@ const schemaUpdateContact = Joi.object({
     .optional(),
 }).min(1)
 
-// const validate = async (schema, obj, next) => {
-//   try {
-//     await schema.validateAsync(obj)
-//     next()
-//   } catch (error) {
-//     next({ status: 400, message: error.message.replace(/"/g, '') })
-//   }
-// }
-
 const validate = (schema, res, obj, next) => {
   const validationData = schema.validate(obj)
 
