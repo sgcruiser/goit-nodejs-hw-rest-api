@@ -36,7 +36,8 @@ const validate = (schema, res, obj, next) => {
   const validationData = schema.validate(obj)
 
   if (validationData.error) {
-    return res.status(400).json({ message: validationData.error.message.replace(/"/g, '') })
+    return res.status(400)
+      .json({ message: validationData.error.message.replace(/"/g, '') })
   }
 
   next()
