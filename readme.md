@@ -1,11 +1,9 @@
 # goit-nodejs-hw-rest-api
 
 <hr>
-Проект создан в рамках изучения Node.JS при прохождении онлайн-курса обучения
+Проект создан в рамках изучения Node.JS при прохождении онлайн-курса обучени
 
-[FULL STACK РАЗРАБОТЧИК С НУЛЯ](https://goit.ua/fullstackonline/#)
-
-в компании [GoIT](https://goit.ua).
+[FULL STACK РАЗРАБОТЧИК С НУЛЯ](https://goit.ua/fullstackonline/#) в компании [GoIT](https://goit.ua).
 <hr>
 
 ## Overview
