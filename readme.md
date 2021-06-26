@@ -1,31 +1,62 @@
-## GoIT Node.js Course Template Homework
+# goit-nodejs-hw-rest-api
 
-Выполните форк этого репозитория для выполнения домашних заданий (2-6)
-Форк создаст репозиторий на вашем http://github.com
+<hr>
+Проект создан в рамках изучения Node.JS при прохождении онлайн-курса обучени
 
-Добавьте ментора в коллаборацию
+[FULL STACK РАЗРАБОТЧИК С НУЛЯ](https://goit.ua/fullstackonline/#) в компании [GoIT](https://goit.ua).
+<hr>
 
-Для каждой домашней работы создавайте свою ветку.
+## Overview
 
-- hw02
-- hw03
-- hw04
-- hw05
-- hw06
+REST Api приложение для работы с коллекцией контактов
 
-Каждая новая ветка для дз должна делаться с master
+## Modules, Library
 
-После того как вы закончили выполнять домашнее задание в своей ветке, необходимо сделать пулл-реквест (PR). Потом добавить ментора для ревью кода. Только после того как ментор заапрувит PR, вы можете выполнить мердж ветки с домашним заданием в мастер.
+- [express](https://www.npmjs.com/package/express)
+- [morgan](https://www.npmjs.com/package/morgan)
+- [cors](https://www.npmjs.com/package/cors)
+- [joi](https://github.com/sideway/joi)
+- [mongodb](https://www.npmjs.com/package/mongodb)
+- [Mongoose ](https://mongoosejs.com/)
+- [MongoDB Compass ](https://www.mongodb.com/products/compass)
 
-Внимательно читайте комментарии ментора. Исправьте замечания и сделайте коммит в ветке с домашним заданием. Изменения подтянуться в PR автоматически после того как вы отправите коммит с исправлениями на github
-После исправления снова добавьте ментора на ревью кода.
+## Routes
 
-- При сдаче домашней работы есть ссылка на PR
-- JS-код чистый и понятный, для форматирования используется Prettier
+### @ GET /api/contacts
 
-### Команды:
+- возвращает массив всех контактов
 
-- `npm start` &mdash; старт сервера в режиме production
-- `npm run start:dev` &mdash; старт сервера в режиме разработки (development)
-- `npm run lint` &mdash; запустить выполнение проверки кода с eslint, необходимо выполнять перед каждым PR и исправлять все ошибки линтера
-- `npm lint:fix` &mdash; та же проверка линтера, но с автоматическими исправлениями простых ошибок
+### @ GET /api/contacts/:contactId
+
+- возвращает обьект контакта
+
+### @ POST /api/contacts
+
+- возвращает объект с добавленным `id` сохранения контакта
+
+### @ DELETE /api/contacts/:contactId
+
+- удаление контакта
+
+### @ PUT /api/contacts/:contactId
+
+- возвращает обновленный объект контакта
+
+### @ PATCH /api/contacts/:contactId/favorite
+
+- возвращает обновленный объект контакта c обновлением поля `favorite`
+
+
+## Items
+
+Схема модели для коллекции `contacts`:
+
+```js
+  {
+    name: {},
+    email: {},
+    phone: {},
+    favorite: {},
+  }
+```
+
