@@ -1,7 +1,7 @@
 # goit-nodejs-hw-rest-api
 
 <hr>
-Проект создан в рамках изучения Node.JS при прохождении онлайн-курса обучени
+Проект создан в рамках изучения Node.JS при прохождении онлайн-курса обучения
 
 [FULL STACK РАЗРАБОТЧИК С НУЛЯ](https://goit.ua/fullstackonline/#) в компании [GoIT](https://goit.ua).
 <hr>
@@ -19,8 +19,12 @@ REST Api приложение для работы с коллекцией кон
 - [mongodb](https://www.npmjs.com/package/mongodb)
 - [Mongoose ](https://mongoosejs.com/)
 - [MongoDB Compass ](https://www.mongodb.com/products/compass)
+- [bcrypt.js ](https://www.npmjs.com/package/bcryptjs)
+- [mongoose-paginate-v2 ](https://www.npmjs.com/package/mongoose-paginate-v2)
+- [jsonwebtoken ](https://www.npmjs.com/package/jsonwebtoken)
+- [dotenv ](https://www.npmjs.com/package/dotenv)
 
-## Routes
+## Routes Contacts
 
 ### @ GET /api/contacts
 
@@ -47,7 +51,7 @@ REST Api приложение для работы с коллекцией кон
 - возвращает обновленный объект контакта c обновлением поля `favorite`
 
 
-## Items
+## Items Contacts
 
 Схема модели для коллекции `contacts`:
 
@@ -57,6 +61,40 @@ REST Api приложение для работы с коллекцией кон
     email: {},
     phone: {},
     favorite: {},
+    owner: {},
   }
 ```
+## Routes Users
 
+### @ POST /users/signup
+
+- регистрация пользователя
+
+### @ POST /users/login
+
+- логин пользователя
+
+### @ POST /users/logout
+
+- логаут пользователя
+
+### @ GET /users/current
+
+- текущий пользователь - получить данные юзера по токену
+
+### @ PATCH /user/subscription
+
+- обновление подписки пользователя
+
+## Items Users
+
+Схема модели для коллекции `users`:
+
+```js
+  {
+    password: {},
+    email: {},
+    subscription: {},
+    token: {},
+  }
+```
