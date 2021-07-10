@@ -23,6 +23,10 @@ REST Api приложение для работы с коллекцией кон
 - [mongoose-paginate-v2 ](https://www.npmjs.com/package/mongoose-paginate-v2)
 - [jsonwebtoken ](https://www.npmjs.com/package/jsonwebtoken)
 - [dotenv ](https://www.npmjs.com/package/dotenv)
+- [Multer](https://github.com/expressjs/multer)
+- [gravatar](https://www.npmjs.com/package/gravatar)
+- [jimp](https://www.npmjs.com/package/jimp)
+
 
 ## Routes Contacts
 
@@ -97,4 +101,17 @@ REST Api приложение для работы с коллекцией кон
     subscription: {},
     token: {},
   }
+```
+## Avatar User
+
+### @ PATCH /users/avatars
+
+Добавление в схему модели для коллекции `users`:
+
+```js
+{
+  ...
+  avatarURL: {},
+  ...
+}
 ```
