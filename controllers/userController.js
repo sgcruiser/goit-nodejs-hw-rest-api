@@ -4,11 +4,14 @@ const path = require('path')
 const { login, logout } = require('../services/authServices')
 const {
   createUser,
+  verifyUser,
+  reVerifyUser,
   findUserById,
   findUserByEmail,
   updateSubscription,
   updateAvatar,
 } = require('../services/userServices')
+
 const { editAvatar } = require('../helpers/avatarEditor')
 
 const AVATARS_DIR = path.join(
@@ -32,8 +35,35 @@ const registrationController = async (req, res) => {
     .json({ user: { email, subscription, avatarURL } })
 }
 
+const verifyController = async (req, res) => {
+  const verificationToken = req.params
+  const validity = await verifyUser(verificationToken)
+
+  if (validity) {
+    return res.status(201)
+      .json({ messaage: 'Verification successful' })
+  }
+
+  res.status(404)
+    .json({ message: 'User not found' })
+}
+
+const reVerifyController = async (req, res) => {
+  const email = req.body.email
+  const reValidity = await reVerifyUser(email)
+
+  if (reValidity) {
+    return res.status(201)
+      .json({ message: 'Verification email sent' })
+  }
+
+  res.status(400)
+    .json({ message: 'Verification has already been passed' })
+}
+
 const loginController = async (req, res) => {
   const { body } = req
+  console.log('loginController :', req.body)
   const token = await login(body)
 
   if (token) {
@@ -102,6 +132,8 @@ const avatarController = async (req, res) => {
 
 module.exports = {
   registrationController,
+  verifyController,
+  reVerifyController,
   loginController,
   logoutController,
   currentUserController,
