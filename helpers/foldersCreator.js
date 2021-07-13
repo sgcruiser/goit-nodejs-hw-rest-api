@@ -9,12 +9,12 @@ const isAccessible = async (path) => {
 }
 
 // Создает папку, если есть права на запись (нужно вынести отдельно в конфиг!!!)
-const createFoldereIsNotExist = async (folder) => {
+const createFolderIsNotExist = async (folder) => {
   if (!(await isAccessible(folder))) {
     await fs.mkdir(folder)
   }
 }
 
 module.exports = {
-  createFoldereIsNotExist
+  createFolderIsNotExist
 }

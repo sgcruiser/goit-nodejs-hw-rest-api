@@ -9,13 +9,12 @@ const createUser = async (body) => {
   await sendEmail(verifyToken, email)
 
   const user = await new User({ ...body, verifyToken })
-  console.log('createUser: ', user)
+  console.log('created User: ', user)
   return user.save()
 }
 
-const verifyUser = async ({ token }) => {
+const verifyUser = async (token) => {
   const user = await User.findOne({ verifyToken: token })
-  console.log('verifyUser: ', user)
 
   if (user) {
     await user.updateOne({ verify: true, verifyToken: null })

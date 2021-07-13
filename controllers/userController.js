@@ -36,12 +36,12 @@ const registrationController = async (req, res) => {
 }
 
 const verifyController = async (req, res) => {
-  const verificationToken = req.params
-  const validity = await verifyUser(verificationToken)
+  const data = req.params.verificationToken
+  const validity = await verifyUser(data)
 
   if (validity) {
     return res.status(201)
-      .json({ messaage: 'Verification successful' })
+      .json({ message: 'Verification successful' })
   }
 
   res.status(404)
@@ -63,7 +63,6 @@ const reVerifyController = async (req, res) => {
 
 const loginController = async (req, res) => {
   const { body } = req
-  console.log('loginController :', req.body)
   const token = await login(body)
 
   if (token) {
@@ -119,8 +118,6 @@ const avatarController = async (req, res) => {
 
     const newAvatarURL =
       `${protocol}://${host}/${process.env.FOLDER_AVATARS}/${name}`
-
-    console.log(newAvatarURL)
 
     const url = await updateAvatar(id, newAvatarURL)
 
