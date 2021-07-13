@@ -1,10 +1,12 @@
 # goit-nodejs-hw-rest-api
 
-<hr>
+#
+
 Проект создан в рамках изучения Node.JS при прохождении онлайн-курса обучения
 
 [FULL STACK РАЗРАБОТЧИК С НУЛЯ](https://goit.ua/fullstackonline/#) в компании [GoIT](https://goit.ua).
-<hr>
+
+#
 
 ## Overview
 
@@ -17,16 +19,17 @@ REST Api приложение для работы с коллекцией кон
 - [cors](https://www.npmjs.com/package/cors)
 - [joi](https://github.com/sideway/joi)
 - [mongodb](https://www.npmjs.com/package/mongodb)
-- [Mongoose ](https://mongoosejs.com/)
-- [MongoDB Compass ](https://www.mongodb.com/products/compass)
-- [bcrypt.js ](https://www.npmjs.com/package/bcryptjs)
-- [mongoose-paginate-v2 ](https://www.npmjs.com/package/mongoose-paginate-v2)
-- [jsonwebtoken ](https://www.npmjs.com/package/jsonwebtoken)
-- [dotenv ](https://www.npmjs.com/package/dotenv)
+- [Mongoose](https://mongoosejs.com/)
+- [MongoDB Compass](https://www.mongodb.com/products/compass)
+- [bcrypt.js](https://www.npmjs.com/package/bcryptjs)
+- [mongoose-paginate-v2](https://www.npmjs.com/package/mongoose-paginate-v2)
+- [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken)
+- [dotenv](https://www.npmjs.com/package/dotenv)
 - [Multer](https://github.com/expressjs/multer)
 - [gravatar](https://www.npmjs.com/package/gravatar)
 - [jimp](https://www.npmjs.com/package/jimp)
-
+- [SendGrid](https://sendgrid.com/)
+- [nanoid](https://www.npmjs.com/package/nanoid)
 
 ## Routes Contacts
 
@@ -54,7 +57,6 @@ REST Api приложение для работы с коллекцией кон
 
 - возвращает обновленный объект контакта c обновлением поля `favorite`
 
-
 ## Items Contacts
 
 Схема модели для коллекции `contacts`:
@@ -68,6 +70,7 @@ REST Api приложение для работы с коллекцией кон
     owner: {},
   }
 ```
+
 ## Routes Users
 
 ### @ POST /users/signup
@@ -100,18 +103,84 @@ REST Api приложение для работы с коллекцией кон
     email: {},
     subscription: {},
     token: {},
+    avatarURL: {},
+    verify: {},
+    verifyToken: {},
   }
 ```
+
 ## Avatar User
 
-### @ PATCH /users/avatars
 
-Добавление в схему модели для коллекции `users`:
+```shell
+### Запрос
+PATCH /users/avatars
+Content-Type: multipart/form-data
+Authorization: "Bearer {{token}}"
+RequestBody: загруженный файл
 
-```js
-{
-  ...
-  avatarURL: {},
-  ...
+### Успешный ответ
+Status: 200 OK
+Content-Type: application/json
+ResponseBody: {
+  "avatarURL": "тут будет ссылка на изображение"
 }
+```
+
+## Verification USER
+
+### Verification request
+
+```shell
+GET /auth/verify/:verificationToken
+```
+
+### Verification user Not Found
+
+```shell
+Status: 404 Not Found
+ResponseBody: {  message: 'User not found' }
+```
+
+### Verification success response
+
+```shell
+Status: 200 OK
+ResponseBody: {  message: 'Verification successful', }
+```
+
+## Re-verification USER
+
+### @ POST /users/verify/
+
+#### Resending a email request
+
+```shell
+POST /users/verify
+Content-Type: application/json
+RequestBody: {  "email": "example@example.com" }
+```
+
+#### Resending a email validation error
+
+```shell
+Status: 400 Bad Request
+Content-Type: application/json
+ResponseBody: <Ошибка от Joi или другой библиотеки валидации>
+```
+
+#### Resending a email success response
+
+```shell
+Status: 200 Ok
+Content-Type: application/json
+ResponseBody: {  "message": "Verification email sent" }
+```
+
+#### Resend email for verified user
+
+```shell
+Status: 400 Bad Request
+Content-Type: application/json
+ResponseBody: {  message: "Verification has already been passed" }
 ```
